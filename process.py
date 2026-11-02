@@ -216,7 +216,11 @@ def add_package_to_release(ota_name, dd_url):
         # TargetVersion is not reliable at the moment
         # see https://web.archive.org/web/20251231102756id_/https://dleu.ztems.com/zxmdmp/download.do?doWhat=getDD&filename=firmwarepackages/DE/ZTE/NX769J/432594/GEN_EEA_NX769SV2.0.0B07_TO_GEN_EEA_NX769SV2.0.0B06MR1_CDN.dd
         #target_version = re.search(r"<TargetVersion>(.*)</TargetVersion>", dd.description).group(1)
-        release_notes = re.search(r"<ReleaseNotes>(.*)</ReleaseNotes>", dd.description).group(1)
+        release_notes = re.search(r"<ReleaseNotes>(.*)</ReleaseNotes>", dd.description)
+        if release_notes is None:
+            release_notes = ""
+        else:
+            release_notes = release_notes.group(1)
 
         with session.get(ota_payload_properties_url) as resp:
             resp.raise_for_status()
