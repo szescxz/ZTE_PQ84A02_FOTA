@@ -20,6 +20,7 @@ from utils import clear_line, DeltaUpdateFile, DownloadDescriptor, HttpFile, loa
 
 DEVICE_MODELS = os.environ.get("DEVICE_MODELS", "")
 DEVICE_MODELS = DEVICE_MODELS.split(",") if DEVICE_MODELS != "" else ["NX769J", "NX769S"]
+DEVICE_NAME = os.environ.get("DEVICE_NAME", DEVICE_MODELS[0])
 IS_REDMAGIC = int(os.environ.get("IS_REDMAGIC", "1"))
 FILES_TO_EXTRACT = [
     "apex_info.pb",
@@ -99,7 +100,7 @@ def update_tracking_repository(repo_folder, ota_url):
             ota_build_props = load_props(f.read())
         with ota_file.open("META-INF/com/android/metadata", "r") as f:
             metadata = load_props(f.read())
-        assert metadata["pre-device"] == DEVICE_MODELS[0]
+        assert metadata["pre-device"] == DEVICE_NAME
 
         try:
             with open(os.path.join(repo_folder, "build.prop"), "r") as f:

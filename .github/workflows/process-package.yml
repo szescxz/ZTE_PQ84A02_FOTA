@@ -42,3 +42,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEVICE_MODELS: ${{ vars.DEVICE_MODELS }}
+          DEVICE_NAME: ${{ vars.DEVICE_NAME }}
